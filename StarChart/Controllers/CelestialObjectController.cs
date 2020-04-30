@@ -57,7 +57,7 @@ namespace StarChart.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] CelestialObject obj)
+        public IActionResult Create([FromBody]CelestialObject obj)
         {
             var newObj = _context.CelestialObjects.Add(obj);
             _context.SaveChanges();
@@ -65,7 +65,7 @@ namespace StarChart.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update([FromBody] CelestialObject obj, int id)
+        public IActionResult Update([FromBody]CelestialObject obj, int id)
         {
             var dbObj = _context.CelestialObjects.FirstOrDefault(x => x.Id == id);
             if (dbObj == null) return NotFound();
