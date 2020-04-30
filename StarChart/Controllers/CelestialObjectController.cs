@@ -32,12 +32,14 @@ namespace StarChart.Controllers
         [HttpGet("{name}", Name = "GetByName")]
         public IActionResult GetByName(string name)
         {
-            var obj = _context.CelestialObjects.FirstOrDefault(x => x.Name == name);
-            if (obj == null) return NotFound();
-            var satellites = _context.CelestialObjects.Where(x => x.OrbitedObjectId == obj.Id).ToList();
-            obj.Satellites = satellites;
+            var objs = _context.CelestialObjects.Where(x => x.Name == name);
+            if (objs == null) return NotFound();
+            foreach (var item in objs)
+            {
+                item.Satellites = _context.CelestialObjects.Where(x => x.OrbitedObjectId == item.Id).ToList();
+            }
 
-            return Ok(obj);
+            return Ok(objs);
         }
 
         [HttpGet(Name = "GetAll")]
